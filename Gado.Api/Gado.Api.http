@@ -1,0 +1,6 @@
+@Gado.Api_HostAddress = http://localhost:5110
+
+GET {{Gado.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

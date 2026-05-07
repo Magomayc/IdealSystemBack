@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Gado.Api/Gado.Api.csproj" />
+  <Project Path="Gado.Aplicacao/Gado.Aplicacao.csproj" />
+  <Project Path="Gado.Dominio/Gado.Dominio.csproj" />
+  <Project Path="Gado.Repositorio/Gado.Repositorio.csproj" />
+</Solution>

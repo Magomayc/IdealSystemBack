@@ -1,0 +1,67 @@
+## .NET ##
+bin/
+obj/
+out/
+
+## User-specific files ##
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## User-specific files (MonoDevelop/Xamarin Studio) ##
+*.userprefs
+
+## Build results ##
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## Visual Studio ##
+.vs/
+*.sln.iml
+
+## Rider ##
+.idea/
+
+## VS Code ##
+.vscode/
+
+## NuGet ##
+*.nupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+## SQLite database files ##
+*.sqlite
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+*.db
+*.db-journal
+
+## OS files ##
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+## Publish ##
+publish/
+
+## Docker (não precisa ignorar, mas caso tenha .env) ##
+.env
+.env.*
+!.env.example
