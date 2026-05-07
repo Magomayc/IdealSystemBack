@@ -52,9 +52,11 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
     {
         policy.WithOrigins(
-                  "http://localhost:5173",      // Dev local (React)
-                  "http://localhost:3000",      // Dev local (Docker)
-                  "http://2.24.83.230:3000"     // Produção (Hostinger)
+                  "http://localhost:5173",        // Dev local (React)
+                  "http://localhost:3000",        // Dev local (Docker)
+                  "http://2.24.83.230:3000",     // Produção (IP)
+                  "http://idealsystem.cloud",    // Produção (Domínio)
+                  "https://idealsystem.cloud"    // Produção (Domínio HTTPS)
               )
               .AllowAnyHeader()
               .AllowAnyMethod();
