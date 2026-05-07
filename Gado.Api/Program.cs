@@ -67,7 +67,31 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// --- 7. Pipeline de Execução ---
+// --- 7. Seed: Criar banco e usuário admin padrão (se não existir) ---
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<GadoContexto>();
+    
+    // Garante que o banco e as tabelas sejam criados
+    context.Database.EnsureCreated();
+    
+    // Se não existir nenhum usuário, cria um admin padrão
+    if (!context.Usuarios.Any())
+    {
+        context.Usuarios.Add(new Gado.Dominio.Entidades.Usuario
+        {
+            Nome = "Administrador",
+            Email = "admin@admin.com",
+            Senha = "admin123",
+            TipoUsuarioID = Gado.Dominio.Enumeradores.TipoUsuarios.Administrador,
+            Ativo = true
+        });
+        context.SaveChanges();
+        Console.WriteLine("✅ Usuário admin padrão criado: admin@admin.com / admin123");
+    }
+}
+
+// --- 8. Pipeline de Execução ---
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
