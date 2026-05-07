@@ -39,6 +39,9 @@ builder.Services.AddControllers()
         // Isso impede que o sistema quebre ao tentar serializar Venda -> Itens -> Venda
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         
+        // Aceita JSON em camelCase (email, senha) vindo do front-end React
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        
         // Opcional: Ignorar nulos para deixar o JSON mais limpo
         // options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     });
@@ -48,7 +51,11 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://localhost:5173") // A porta do seu React
+        policy.WithOrigins(
+                  "http://localhost:5173",      // Dev local (React)
+                  "http://localhost:3000",      // Dev local (Docker)
+                  "http://2.24.83.230:3000"     // Produção (Hostinger)
+              )
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
