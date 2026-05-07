@@ -92,11 +92,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 // --- 8. Pipeline de Execução ---
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Swagger habilitado em todos os ambientes para facilitar testes
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // Redirecionamento HTTPS (Pode comentar se estiver dando erro de certificado localmente)
 app.UseHttpsRedirection();
