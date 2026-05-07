@@ -72,8 +72,8 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<GadoContexto>();
     
-    // Garante que o banco e as tabelas sejam criados
-    context.Database.EnsureCreated();
+    // Aplica as migrations pendentes (cria o banco se não existir)
+    context.Database.Migrate();
     
     // Se não existir nenhum usuário, cria um admin padrão
     if (!context.Usuarios.Any())
