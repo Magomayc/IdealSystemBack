@@ -35,5 +35,12 @@ public class ItemVendaConfiguracoes : IEntityTypeConfiguration<ItemVenda>
         builder.Property(i => i.ValorUnitario)
             .HasPrecision(18, 2)
             .IsRequired();
+
+        // --- SNAPSHOT: Dados do animal no momento da venda ---
+        builder.Property(i => i.PesoEntrada)
+            .HasPrecision(18, 2);
+
+        builder.Property(i => i.ValorEntrada)
+            .HasPrecision(18, 2);
     }
 }

@@ -28,16 +28,13 @@ RUN dotnet publish Gado.Api/Gado.Api.csproj \
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview AS runtime
 WORKDIR /app
 
-# Criar diretório para o banco SQLite persistente
-RUN mkdir -p /app/data
-
 # Copiar artefatos publicados
 COPY --from=build /app/publish .
 
 # Variáveis de ambiente
 ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV ConnectionStrings__DefaultConnection="Data Source=/app/data/gado.sqlite"
+ENV ConnectionStrings__DefaultConnection="Server=sqlserver;Database=GadoDB;User Id=sa;Password=SuaSenhaForte123!;TrustServerCertificate=True;"
 
 # Expor a porta
 EXPOSE 8080

@@ -6,14 +6,14 @@ using System.Text.Json.Serialization; // <--- NECESSÁRIO PARA O FIX DO JSON
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- 1. Configuração do Banco de Dados (SQLite) ---
+// --- 1. Configuração do Banco de Dados (SQL Server) ---
 // Em produção (Docker), usa a variável de ambiente ConnectionStrings__DefaultConnection
-// Em desenvolvimento, usa o caminho local do appsettings.json
+// Em desenvolvimento, usa a connection string do appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-    ?? "Data Source=../Gado.Repositorio/gado.sqlite";
+    ?? "Server=localhost\\SQLEXPRESS;Database=GadoDB;Trusted_Connection=True;TrustServerCertificate=True;";
 
 builder.Services.AddDbContext<GadoContexto>(options => 
-    options.UseSqlite(connectionString));
+    options.UseSqlServer(connectionString));
 
 // --- 2. Injeção de Dependência dos Repositórios ---
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();

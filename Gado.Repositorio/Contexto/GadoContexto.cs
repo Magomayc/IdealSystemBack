@@ -34,7 +34,7 @@ public class GadoContexto : DbContext
 
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlite("Data Source=../Gado.Repositorio/gado.sqlite");
+            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=GadoDB;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 
