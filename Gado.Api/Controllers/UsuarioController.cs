@@ -148,7 +148,7 @@ namespace Gado.Api.Controllers
 
         [HttpGet]
         [Route("Listar")]
-        public async Task<IActionResult> ListarAsync([FromQuery] bool ativo, [FromQuery] string query = "")
+        public async Task<IActionResult> ListarAsync([FromQuery] bool ativo = true, [FromQuery] string query = "")
         {
             try
             {
