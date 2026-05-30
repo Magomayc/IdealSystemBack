@@ -3,6 +3,8 @@ using DataAccess.Repositorios;
 using Gado.Aplicacao;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization; // <--- NECESSÁRIO PARA O FIX DO JSON
+using System.Net.Http.Headers;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -94,6 +96,40 @@ using (var scope = app.Services.CreateScope())
 }
 
 // --- 8. Pipeline de Execução ---
+
+// --- Middleware de autenticação básica para o Swagger ---
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path.Value ?? "";
+    if (path.StartsWith("/swagger", StringComparison.OrdinalIgnoreCase))
+    {
+        // Credenciais do Swagger (lidas do appsettings ou fallback)
+        var swaggerUser = builder.Configuration["Swagger:Usuario"] ?? "magomayc";
+        var swaggerPass = builder.Configuration["Swagger:Senha"] ?? "M@goku77";
+
+        string authHeader = context.Request.Headers["Authorization"];
+        if (authHeader != null && authHeader.StartsWith("Basic "))
+        {
+            var encoded = authHeader.Substring("Basic ".Length).Trim();
+            var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(encoded));
+            var parts = decoded.Split(':', 2);
+
+            if (parts.Length == 2 && parts[0] == swaggerUser && parts[1] == swaggerPass)
+            {
+                await next();
+                return;
+            }
+        }
+
+        context.Response.StatusCode = 401;
+        context.Response.Headers["WWW-Authenticate"] = "Basic realm=\"Swagger\"";
+        await context.Response.WriteAsync("Acesso não autorizado.");
+        return;
+    }
+
+    await next();
+});
+
 // Swagger habilitado em todos os ambientes para facilitar testes
 app.UseSwagger();
 app.UseSwaggerUI();
