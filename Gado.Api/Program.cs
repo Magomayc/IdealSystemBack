@@ -94,6 +94,9 @@ using (var scope = app.Services.CreateScope())
 }
 
 // --- 8. Pipeline de Execução ---
+// Autenticação básica para proteger o Swagger UI
+app.UseMiddleware<Gado.Api.Middlewares.SwaggerBasicAuthMiddleware>();
+
 // Swagger habilitado em todos os ambientes para facilitar testes
 app.UseSwagger();
 app.UseSwaggerUI();
